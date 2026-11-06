@@ -2,6 +2,8 @@
 
 An interactive observing atlas with a custom Canvas sky chart, a searchable object catalogue and a field log stored in the browser.
 
+**[Open the live demo](https://cjvojta.github.io/nocturne/)**
+
 ![Nocturne atlas landing page](preview.jpg)
 
 ## Run locally
@@ -10,7 +12,7 @@ An interactive observing atlas with a custom Canvas sky chart, a searchable obje
 python -m http.server 8080 --directory dist
 ```
 
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080). Choose a city, set a UTC time and move the offset slider. Select an object on the chart or in the catalogue, add it to your field log and export the list as CSV.
+Open `http://127.0.0.1:8080` after starting the local server. Choose a city, set a UTC time and move the offset slider. Select an object on the chart or in the catalogue, add it to your field log and export the list as CSV.
 
 ## Implementation
 
