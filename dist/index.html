@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the night sky and build an observing plan with a local, interactive celestial atlas.">
+  <meta name="theme-color" content="#080b15">
+  <title>Nocturne — Night Sky Atlas</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a href="#atlas" class="skip">Skip to the atlas</a>
+  <header class="top">
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="#top"><img src="./mark.svg" alt="" width="34" height="34"><span>NOCTURNE<small>NIGHT SKY ATLAS</small></span></a>
+      <div class="nav-links"><a href="#atlas">Atlas</a><a href="#catalogue">Catalogue</a><a href="#session">Field log <span id="nav-count">0</span></a></div>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <canvas id="hero-stars" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <div class="kicker"><span class="pulse"></span> THE NIGHT SKY, IN YOUR HANDS</div>
+        <h1 id="hero-title">Look up.<br><em>Look closer.</em></h1>
+        <p>A field atlas for curious observers. Find what’s above your horizon, explore deep-sky objects, and build a plan for your next clear night.</p>
+        <div class="hero-actions"><a class="button primary" href="#atlas">Open the atlas <span aria-hidden="true">↗</span></a><a class="text-link" href="#catalogue">Browse catalogue <span aria-hidden="true">↓</span></a></div>
+      </div>
+      <div class="hero-coordinate" aria-hidden="true"><span>PLATE 01</span> / THE CELESTIAL SPHERE</div>
+    </section>
+    <div class="shell strip"><span><i></i> Interactive sky chart</span><span>Observer presets</span><span>Local field log</span><span>UTC / J2000</span></div>
+    <section class="shell section" id="atlas" aria-labelledby="atlas-title">
+      <div class="section-head"><div><p class="kicker">01 / THE ATLAS</p><h2 id="atlas-title">Your sky tonight</h2></div><p>Set an observing site and move through time to see which objects cross the horizon.</p></div>
+      <div class="workspace">
+        <aside class="instrument">
+          <h3>Observer</h3>
+          <label for="place">Location preset</label>
+          <select id="place"><option value="jihlava">Jihlava, Czechia</option><option value="prague">Prague, Czechia</option><option value="london">London, UK</option><option value="newyork">New York, USA</option><option value="sydney">Sydney, Australia</option><option value="custom">Custom coordinates</option></select>
+          <div class="coordinate-inputs"><label for="lat">Latitude<input id="lat" type="number" step="0.001" min="-90" max="90" value="49.396"></label><label for="lon">Longitude<input id="lon" type="number" step="0.001" min="-180" max="180" value="15.591"></label></div>
+          <label for="moment">Date and time · UTC</label>
+          <input id="moment" type="datetime-local">
+          <div class="control-row"><button class="button quiet" id="now">Set to now</button><button class="button quiet" id="reset-offset">Reset offset</button></div>
+          <label for="offset" class="range-label">Time offset <output id="offset-value">0 h</output></label>
+          <input id="offset" type="range" min="-12" max="12" step="0.5" value="0">
+          <div class="range-label muted"><span>−12 h</span><span>+12 h</span></div>
+          <p id="instrument-error" class="error" role="alert"></p>
+          <div class="instrument-status"><span class="pulse"></span><span id="sky-count" aria-live="polite">Calculating sky…</span></div>
+        </aside>
+        <div class="chart-card">
+          <div class="chart-top"><span class="kicker">HORIZON MAP</span><label class="check"><input id="labels" type="checkbox" checked> Labels</label></div>
+          <canvas id="sky" role="img" aria-label="Polar horizon map. North is at the top, east at the left, zenith at the centre. Object positions are also available in the catalogue."></canvas>
+          <div class="legend"><span><i class="dot star"></i> Star</span><span><i class="dot nebula"></i> Nebula</span><span><i class="dot galaxy"></i> Galaxy</span><span><i class="dot cluster"></i> Cluster</span></div>
+        </div>
+        <aside class="focus" aria-label="Selected object"><p class="kicker">OBJECT IN FOCUS</p><div id="focus"></div></aside>
+      </div>
+    </section>
+    <section class="shell section" id="catalogue" aria-labelledby="catalogue-title">
+      <div class="section-head"><div><p class="kicker">02 / DEEP SKY &amp; STARS</p><h2 id="catalogue-title">The catalogue</h2></div><p>Filter the field guide, inspect a target, and add it to your field log.</p></div>
+      <div class="catalogue-bar"><div class="filters" id="filters" aria-label="Object type"></div><label class="search"><span class="sr-only">Search objects</span><input id="search" type="search" placeholder="Search by name or ID…"></label><label class="check"><input id="above" type="checkbox"> Above horizon</label></div>
+      <p class="sr-only" id="results" aria-live="polite"></p>
+      <div id="cards" class="cards"></div>
+    </section>
+    <section class="shell section" id="session" aria-labelledby="session-title">
+      <div class="section-head"><div><p class="kicker">03 / OBSERVING SESSION</p><h2 id="session-title">Field log</h2></div><p>Your shortlist stays in this browser. Export your targets with their positions for the selected date and time.</p></div>
+      <div class="session-panel"><div id="shortlist"></div><button class="button primary" id="export" disabled>Export CSV <span aria-hidden="true">↓</span></button></div>
+    </section>
+  </main>
+  <footer class="shell footer"><a class="brand" href="#top"><img src="./mark.svg" alt="" width="28" height="28">NOCTURNE</a><p>Approximate geometric positions. Twilight, terrain, and weather are outside the model.</p><a href="https://science.nasa.gov/mission/hubble/science/explore-the-night-sky/hubble-messier-catalog/">NASA Messier catalogue ↗</a></footer>
+</body>
+</html>
